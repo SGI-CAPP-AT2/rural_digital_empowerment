@@ -28,13 +28,13 @@ const RegisterPage = () => {
   };
 
   return (
-    <Box
+    <Paper
       sx={{
         height: "100vh",
-        backgroundColor: "#f5f5f5",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        borderRadius: "0%",
       }}
     >
       <Paper elevation={3} sx={{ p: 4, maxWidth: 400, width: "100%" }}>
@@ -112,7 +112,7 @@ const RegisterPage = () => {
           Sign up with Google
         </Button>
       </Paper>
-    </Box>
+    </Paper>
   );
 };
 
