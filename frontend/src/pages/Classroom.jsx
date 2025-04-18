@@ -34,6 +34,12 @@ const ClassroomHomePage = ({
   },
 }) => {
   return (
+    <Box 
+    sx={{
+      bgcolor: "background.default",
+      color: "text.primary",
+      height: "100vh"
+    }}>
     <Container
       maxWidth="lg"
       sx={{
@@ -170,6 +176,7 @@ const ClassroomHomePage = ({
         </Box>
       </Box>
     </Container>
+    </Box>
   );
 };
 
