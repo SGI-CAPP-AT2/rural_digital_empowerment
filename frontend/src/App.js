@@ -9,6 +9,10 @@ import { ProfileProvider } from "./context/profile.context";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
 import LoadingRoutes from "./routes/LoadingRoutes";
+import CreateRoomPage from "./pages/CreateForm";
+import JoinRoomPage from "./pages/JoinRoomPage";
+import UploadPostPage from "./pages/UploadPostPage";
+import ShareAnnouncement from "./pages/ShareAnnouncement";
 function App() {
   return (
     <BrowserRouter>
@@ -21,8 +25,15 @@ function App() {
                 <Route path="/register" element={<RegisterPage />} />
               </Route>
               <Route element={<PrivateRoutes />}>
+                <Route path="/join-room" element={<JoinRoomPage />} />
+                <Route path="/create-room" element={<CreateRoomPage />} />
                 <Route path="/" element={<ClassroomHome />} />
-                <Route path="/classroom/:id" element={<Classroom />} />
+                <Route path="/classroom/:room" element={<Classroom />} />
+                <Route path="/upload-post/:room" element={<UploadPostPage />} />
+                <Route
+                  path="/share-announcement/:room"
+                  element={<ShareAnnouncement />}
+                />
               </Route>
             </Route>
           </Routes>
