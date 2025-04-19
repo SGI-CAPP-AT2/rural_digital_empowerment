@@ -9,6 +9,7 @@ import {
   Alert,
   CssBaseline,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase/firebase";
 import { joinRoom } from "../utils/api"; // adjust path if needed
 
@@ -16,6 +17,7 @@ const JoinRoomPage = () => {
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState({ type: "", message: "" });
+  const navigate = useNavigate(); // Initialize navigate function
 
   const handleJoin = async () => {
     setLoading(true);
@@ -63,6 +65,15 @@ const JoinRoomPage = () => {
           {status.message && (
             <Alert severity={status.type}>{status.message}</Alert>
           )}
+
+          {/* Back to Home Button */}
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={() => navigate("/")}
+          >
+            Back to Home
+          </Button>
         </Box>
       </Container>
     </>

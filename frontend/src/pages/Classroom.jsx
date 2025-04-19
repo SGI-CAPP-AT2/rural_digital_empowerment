@@ -29,6 +29,7 @@ import {
   getPosts,
   getRoomDetails,
 } from "../utils/api";
+import { NavigateBefore } from "@mui/icons-material";
 
 const drawerWidth = 240;
 
@@ -74,8 +75,8 @@ const ClassroomHomePage = () => {
   };
 
   const drawer = (
-    <Box sx={{ p: 2 }}>
-      <Typography variant="h6" gutterBottom>
+    <Box>
+      <Typography variant="h6" sx={{ margin: 2 }} gutterBottom>
         Classroom Menu
       </Typography>
       <List>
@@ -87,7 +88,7 @@ const ClassroomHomePage = () => {
           <ListItemIcon>
             <PostAddIcon />
           </ListItemIcon>
-          <ListItemText primary="Create Post" />
+          <ListItemText primary="Post" />
         </ListItem>
 
         {/* Create Announcement menu item */}
@@ -98,7 +99,14 @@ const ClassroomHomePage = () => {
           <ListItemIcon>
             <AnnouncementIcon />
           </ListItemIcon>
-          <ListItemText primary="Create Announcement" />
+          <ListItemText primary="Announce" />
+        </ListItem>
+
+        <ListItem button onClick={() => handleMenuClick(`/`)}>
+          <ListItemIcon>
+            <NavigateBefore />
+          </ListItemIcon>
+          <ListItemText primary="Back" />
         </ListItem>
       </List>
     </Box>
@@ -106,16 +114,19 @@ const ClassroomHomePage = () => {
 
   if (loading) {
     return (
-      <Box
-        sx={{
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <CircularProgress />
-      </Box>
+      <>
+        <CssBaseline />
+        <Box
+          sx={{
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      </>
     );
   }
 

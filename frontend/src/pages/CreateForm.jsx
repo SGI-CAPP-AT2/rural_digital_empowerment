@@ -9,6 +9,7 @@ import {
   Paper,
   Alert,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { createRoom } from "./../utils/api"; // adjust import path as needed
 import { useProfile } from "../context/profile.context";
 
@@ -19,6 +20,7 @@ export default function CreateRoomPage() {
   const [description, setDescription] = useState("");
   const [successCode, setSuccessCode] = useState(null);
   const [error, setError] = useState("");
+  const navigate = useNavigate(); // 👈 Add navigate
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,6 +87,16 @@ export default function CreateRoomPage() {
               </Alert>
             )}
           </Box>
+
+          {/* 👇 Back to Home Button */}
+          <Button
+            variant="outlined"
+            fullWidth
+            sx={{ mt: 2 }}
+            onClick={() => navigate("/")}
+          >
+            Back to Home
+          </Button>
         </Paper>
       </Container>
     </>

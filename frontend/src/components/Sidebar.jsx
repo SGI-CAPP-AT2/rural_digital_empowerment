@@ -8,45 +8,50 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import InboxIcon from "@mui/icons-material/Inbox";
-import { AddCircleOutlineOutlined } from "@mui/icons-material";
+import { AddCircleOutlineOutlined, Login } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
-const Sidebar = ({ drawerWidth }) => (
-  <Box sx={{ width: drawerWidth - 1 }}>
-    <Toolbar />
-    <Divider />
-    <List>
-      <ListItem button>
-        <ListItemIcon>
-          <InboxIcon />
-        </ListItemIcon>
-        <ListItemText
-          primary={
-            <Typography
-              noWrap
-              sx={{ overflow: "hidden", textOverflow: "ellipsis" }}
-            >
-              All Classes
-            </Typography>
-          }
-        />
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <AddCircleOutlineOutlined />
-        </ListItemIcon>
-        <ListItemText
-          primary={
-            <Typography
-              noWrap
-              sx={{ overflow: "hidden", textOverflow: "ellipsis" }}
-            >
-              Create Classroom
-            </Typography>
-          }
-        />
-      </ListItem>
-    </List>
-  </Box>
-);
+const Sidebar = ({ drawerWidth }) => {
+  const navigate = useNavigate();
+
+  return (
+    <Box sx={{ width: drawerWidth - 1 }}>
+      <Toolbar />
+      <Divider />
+      <List>
+        <ListItem button onClick={() => navigate("/join-room")}>
+          <ListItemIcon>
+            <Login />
+          </ListItemIcon>
+          <ListItemText
+            primary={
+              <Typography
+                noWrap
+                sx={{ overflow: "hidden", textOverflow: "ellipsis" }}
+              >
+                Join Classroom
+              </Typography>
+            }
+          />
+        </ListItem>
+        <ListItem button onClick={() => navigate("/create-room")}>
+          <ListItemIcon>
+            <AddCircleOutlineOutlined />
+          </ListItemIcon>
+          <ListItemText
+            primary={
+              <Typography
+                noWrap
+                sx={{ overflow: "hidden", textOverflow: "ellipsis" }}
+              >
+                Create Classroom
+              </Typography>
+            }
+          />
+        </ListItem>
+      </List>
+    </Box>
+  );
+};
+
 export default Sidebar;

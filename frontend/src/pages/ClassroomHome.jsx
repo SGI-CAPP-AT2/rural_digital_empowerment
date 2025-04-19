@@ -21,6 +21,7 @@ import { Logout } from "@mui/icons-material";
 import { useProfile } from "../context/profile.context";
 import styled from "styled-components";
 import { getMyRooms } from "../utils/api"; // make sure this exists
+import { useNavigate } from "react-router-dom";
 
 const Avatar = styled.img`
   height: 30px;
@@ -36,6 +37,7 @@ const ClassroomHome = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { profile, signOut } = useProfile();
   const [classes, setClasses] = useState([]);
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prev) => !prev);
@@ -143,7 +145,13 @@ const ClassroomHome = () => {
               <ListItem
                 alignItems="flex-start"
                 secondaryAction={
-                  <Button variant="outlined" size="small">
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    onClick={() => {
+                      navigate("/classroom/" + course.id);
+                    }}
+                  >
                     Open
                   </Button>
                 }
