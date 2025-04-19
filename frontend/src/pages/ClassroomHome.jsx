@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -11,17 +11,16 @@ import {
   Box,
   Divider,
   Button,
-  ListItemAvatar,
   useMediaQuery,
   CssBaseline,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
-import ClassIcon from "@mui/icons-material/Class";
 import Sidebar from "../components/Sidebar";
 import { Logout } from "@mui/icons-material";
 import { useProfile } from "../context/profile.context";
 import styled from "styled-components";
+import { getMyRooms } from "../utils/api"; // make sure this exists
 
 const Avatar = styled.img`
   height: 30px;
@@ -31,15 +30,24 @@ const Avatar = styled.img`
 
 const drawerWidth = 240;
 
-const ClassroomHome = ({ classes = [] }) => {
+const ClassroomHome = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [mobileOpen, setMobileOpen] = useState(false);
   const { profile, signOut } = useProfile();
+  const [classes, setClasses] = useState([]);
+
   const handleDrawerToggle = () => {
     setMobileOpen((prev) => !prev);
   };
-  console.log(profile.avatar);
+
+  useEffect(() => {
+    if (profile?.email) {
+      getMyRooms(profile.email)
+        .then(setClasses)
+        .catch((err) => console.error("Failed to fetch joined rooms:", err));
+    }
+  }, [profile]);
 
   return (
     <Box
@@ -71,6 +79,7 @@ const ClassroomHome = ({ classes = [] }) => {
           >
             My Classrooms
           </Typography>
+          {/* Correcting Avatar usage */}
           <Avatar src={profile.avatar} alt="avatar" />
           <IconButton color="inherit">
             <Logout onClick={signOut} />
@@ -139,11 +148,6 @@ const ClassroomHome = ({ classes = [] }) => {
                   </Button>
                 }
               >
-                <ListItemAvatar>
-                  <Avatar sx={{ bgcolor: "secondary.main" }}>
-                    <ClassIcon />
-                  </Avatar>
-                </ListItemAvatar>
                 <ListItemText
                   primary={
                     <Typography
