@@ -12,22 +12,43 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import GoogleIcon from "@mui/icons-material/Google"; // using MUI's Google-like icon
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../firebase/firebase";
+import { Navigate } from "react-router-dom";
+import { useProfile } from "../context/profile.context";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-
-  const handleLoginSubmit = (e) => {
+  const { profile } = useProfile();
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    console.log({ email, password, rememberMe });
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log("Logged in:", userCredential.user);
+    } catch (error) {
+      console.error("Login failed:", error.message);
+    }
   };
 
-  const handleGoogleLogin = () => {
-    console.log("Google login clicked");
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log("Google login successful:", user);
+    } catch (error) {
+      console.error("Google login failed:", error.message);
+    }
   };
 
-  return (
+  return profile != null ? (
+    <Navigate to={"/"} />
+  ) : (
     <Paper
       sx={{
         height: "100vh",

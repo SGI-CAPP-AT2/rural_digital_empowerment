@@ -8,7 +8,6 @@ import {
   List,
   ListItem,
   ListItemText,
-  Avatar,
   Box,
   Divider,
   Button,
@@ -18,9 +17,17 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import ClassIcon from "@mui/icons-material/Class";
 import Sidebar from "../components/Sidebar";
+import { Logout } from "@mui/icons-material";
+import { useProfile } from "../context/profile.context";
+import styled from "styled-components";
+
+const Avatar = styled.img`
+  height: 30px;
+  border-radius: 50%;
+  margin: 5px;
+`;
 
 const drawerWidth = 240;
 
@@ -28,10 +35,11 @@ const ClassroomHome = ({ classes = [] }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [mobileOpen, setMobileOpen] = useState(false);
-
+  const { profile, signOut } = useProfile();
   const handleDrawerToggle = () => {
     setMobileOpen((prev) => !prev);
   };
+  console.log(profile.avatar);
 
   return (
     <Box
@@ -63,8 +71,9 @@ const ClassroomHome = ({ classes = [] }) => {
           >
             My Classrooms
           </Typography>
+          <Avatar src={profile.avatar} alt="avatar" />
           <IconButton color="inherit">
-            <AccountCircle />
+            <Logout onClick={signOut} />
           </IconButton>
         </Toolbar>
       </AppBar>
