@@ -16,6 +16,7 @@ import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase/firebase";
 import { Navigate } from "react-router-dom";
 import { useProfile } from "../context/profile.context";
+import { addUser } from "../utils/api";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -40,6 +41,7 @@ const LoginPage = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
+      await addUser(user.email);
       console.log("Google login successful:", user);
     } catch (error) {
       console.error("Google login failed:", error.message);

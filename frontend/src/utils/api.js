@@ -1,7 +1,7 @@
 import { auth } from "../firebase/firebase";
 
 // api.js
-const API_BASE = "http://localhost:61060"; // Change if deployed elsewhere
+const API_BASE = "https://prabal-backend.onrender.com"; // Change if deployed elsewhere
 
 async function getAuthToken() {
   const user = auth.currentUser;
